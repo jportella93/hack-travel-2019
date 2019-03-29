@@ -1,0 +1,11 @@
+{
+  "name": "meet-me-there-server",
+  "version": "1.0.0",
+  "description": "Server for meet me there.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
