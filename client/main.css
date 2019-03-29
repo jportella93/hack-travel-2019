@@ -1,0 +1,26 @@
+button {
+    background-color: #00A991 !important;
+    padding: 10px 15px !important;
+}
+
+button:hover {
+    background-color: #009882 !important;
+}
+
+.ibtnDel {
+    background-color: #D21C1C !important;
+    padding: 5px 15px !important;
+}
+
+.ibtnDel:hover {
+    background-color: #BD1919 !important;
+}
+
+.buy, .send {
+    background-color: #0176D2 !important;
+    padding: 10px 15px !important;
+}
+
+.buy:hover, .send:hover {
+    background-color: #006ABD !important;
+}

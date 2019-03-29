@@ -4,11 +4,10 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
-
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="main.css">
 
     <title>Hello, world!</title>
   </head>
@@ -17,63 +16,71 @@
       <a class="navbar-brand" href="#">Meet Me There</a>
     </nav>
 
-    <div class="container">
-      <div>
-        <div class="card-body">
-          <h4>Step 1: Add Friends</h4>
-          <form id="userForm">
-            <table id="myTable" class=" table order-list">
-              <tbody>
+    <div class="row">
+      <div class="col-5">
+        <div class="container">
+          <div>
+            <div class="card-body">
+              <h4>Step 1: Add Friends</h4>
+              <form id="userForm">
+                <table id="myTable" class="table order-list">
+                  <tbody>
+                      <tr class="row">
+                          <td class="col-md-5">Name</td>
+                          <td class="col-md-5">Airport</td>
+                          <td class="col-md-2"></td>
+                      </tr>
+                      <tr class="row">
+                          <td class="col-md-5">
+                              <input type="text" name="name" class="form-control" placeholder="Full Name" />
+                          </td>
+                          <td class="col-md-5">
+                              <input type="mail" name="mail" class="form-control" placeholder="Airport Code" />
+                          </td>
+                          <td class="col-md-2">
+                              <input type="hidden" />
+                          </td>
+                      </tr>
+                  </tbody>
+                  <tfoot>
+                      <tr>
+                          <td colspan="5" class="text-right">
+                              <button type="button" class="btn btn-info" id="addrow">Add friend</button>
+                          </td>
+                      </tr>
+                      <tr>
+                      </tr>
+                  </tfoot>
+                </table>
+
+                <h4>Step 2: Select Dates</h4>
+                <table class="table">
                   <tr class="row">
-                      <td class="col-sm">Name</td>
-                      <td class="col-sm">Airport</td>
-                      <td class="col-sm"></td>
+                    <td class="col-sm">From Date</td>
+                    <td class="col-sm">To Date</td>
                   </tr>
                   <tr class="row">
-                      <td class="col-sm">
-                          <input type="text" name="name" class="form-control" placeholder="Full Name" />
-                      </td>
-                      <td class="col-sm">
-                          <input type="mail" name="mail" class="form-control" placeholder="Airport Code" />
-                      </td>
-                      <td class="col-sm"><a class="deleteRow"></a>
-                      </td>
+                    <td class="col-sm">
+                      <input class="form-control" type="date" value="2019-03-30" id="fromDate">
+                    </td>
+                    <td class="col-sm">
+                      <input class="form-control" type="date" value="2019-03-31" id="toDate">
+                    </td>
                   </tr>
-              </tbody>
-              <tfoot>
-                  <tr>
-                      <td colspan="5" class="text-right">
-                          <input type="button" class="btn btn-info " id="addrow" value="Add Friend" />
-                      </td>
-                  </tr>
-                  <tr>
-                  </tr>
-              </tfoot>
-            </table>
-            <h4>Step 2: Select Dates</h4>
-            <table class="table">
-              <tr class="row">
-                <td class="col-sm">From Date</td>
-                <td class="col-sm">To Date</td>
-              </tr>
-              <tr class="row">
-                <td class="col-sm">
-                  <input class="form-control" type="date" value="2019-03-30" id="fromDate">
-                </td>
-                <td class="col-sm">
-                  <input class="form-control" type="date" value="2019-03-31" id="toDate">
-                </td>
-              </tr>
-            </table>
-            <div class="text-right">
-              <button type="button" class="btn btn-info" id="getFlights">Get Flights</button>
+                </table>
+                <div class="text-right">
+                  <button type="button" class="btn btn-info" id="getFlights">Get Flights</button>
+                </div>
+              </form>
             </div>
-          </form>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="container" id="resultsTable">
+    <div class="col-7">
+      <div class="container" id="resultsTable">
+        </div>
+      </div>
     </div>
 
     <!-- Optional JavaScript -->
