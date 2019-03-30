@@ -101,10 +101,11 @@ function drawResults(searchResults){
                     var localHour = moment( resultSet[i].localArrival ).format('HH:mm');
                     results += resultSet[i].flyFrom+" -> "+resultSet[i].flyTo+'<br>';
                     results += localHour+'  | <span class="badge badge-dark" style="margin-bottom: 5px;">'+resultSet[i].price+" €</span>";
-                    results += '<br><a class="btn btn-info" href="'+resultSet[i].deepLink+'" role="button" style="margin: 0 5px;">Buy</a>';
+                    results += '<br><a target="_blank" class="btn btn-info" href="'+resultSet[i].deepLink+'" role="button" style="margin: 0 5px;">Buy</a>';
                     var subject = "Lets go to " + resultSet[i].flyTo + "!";
                     var body = encodeURIComponent(resultSet[i].deepLink);
-                    results += '<a class="btn btn-secondary" href="mailto:friend@example.com?subject=' + subject + '&body=' + body + '" role="button" style="margin: 0 5px;">Send to Friend</a>';
+                    results += '<a target="_blank" class="btn btn-warning" href="https://www.airbnb.com/s/'+key+'/experiences" role="button" style="margin: 0 5px;">Explore</a>';
+                    results += '<a target="_blank" class="btn btn-secondary" href="mailto:friend@example.com?subject=' + subject + '&body=' + body + '" role="button" style="margin: 0 5px;">Send to Friend</a>';                    
                     results += "</div>";
                 }
                 results += '</div>';
