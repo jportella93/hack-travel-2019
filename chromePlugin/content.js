@@ -151,7 +151,7 @@ if( x.length > 0) {
 
 
 	for (var key in arrayFound) {
-    	layer += "<a href='file:///Users/vivianaranha/Desktop/hack-travel-2019/client/MeetMeThere/index.html?location="+key+"' style='color:#ebcdf2' id='link_"+key+"'>"+arrayFound[key]+"</a> ";
+    	layer += "<a href='file:///Users/vivianaranha/Documents/GitHub/hack-travel-2019/client/index.html?location="+key+"' style='color:#ebcdf2' id='link_"+key+"'>"+arrayFound[key]+"</a> ";
 	}
 
 	layer +=  "<img style='cursor: pointer' src=\"https://cdn.pixabay.com/photo/2013/07/12/15/37/close-150192_960_720.png\" height='20' align='right' onclick='document.getElementById(\"myLifeDiv\").style.display=\"none\"'> </div>";

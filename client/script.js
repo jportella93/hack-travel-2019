@@ -1,3 +1,5 @@
+
+
 /** Results **/
 
 document.getElementById('spinner').style.display = 'none';
@@ -146,6 +148,19 @@ function drawResults(searchResults){
 
 $(document).ready(function () {
     var counter = 0;
+
+    /*target Destination*/
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const myParam = urlParams.get('location');
+    if(myParam){
+        document.getElementById('targetDestination').style.display = '';
+        $('#targetDestination').html("Looking for Flights to "+myParam);
+    } else {
+        document.getElementById('targetDestination').style.display = 'none';
+    }
+
+    /*target Destination*/
 
     $("#addrow").on("click", function () {
         var newRow = $("<tr class='row'>");
