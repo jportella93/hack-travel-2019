@@ -48,12 +48,13 @@ function drawResults(searchResults){
     });
 
     if( airports != "" ) {
-    var requestURL = "http://localhost:8080/flights?dateFrom="+fromDate+"&dateTo="+toDate+"&origins="+airports;
+    var requestURL = "http://192.168.8.155:8080/flights?dateFrom="+fromDate+"&dateTo="+toDate+"&origins="+airports;
 
     console.log(requestURL);
 
     var p = $.getJSON(requestURL, function( data ) {
 				apiResponse = data;
+        clearTimeout(timer);
         var items = [];
         var listToShow = [];
 
@@ -103,10 +104,11 @@ function drawResults(searchResults){
                     var localHour = moment( resultSet[i].localArrival ).format('HH:mm');
                     results += resultSet[i].flyFrom+" -> "+resultSet[i].flyTo+'<br>';
                     results += localHour+'  | <span class="badge badge-dark" style="margin-bottom: 5px;">'+resultSet[i].price+" €</span>";
-                    results += '<br><a class="btn btn-info" href="'+resultSet[i].deepLink+'" role="button" style="margin: 0 5px;">Buy</a>';
+                    results += '<br><a target="_blank" class="btn btn-info" href="'+resultSet[i].deepLink+'" role="button" style="margin: 0 5px;">Buy</a>';
                     var subject = "Lets go to " + resultSet[i].flyTo + "!";
                     var body = encodeURIComponent(resultSet[i].deepLink);
-                    results += '<a class="btn btn-secondary" href="mailto:friend@example.com?subject=' + subject + '&body=' + body + '" role="button" style="margin: 0 5px;">Send to Friend</a>';
+                    results += '<a target="_blank" class="btn btn-warning" href="https://www.airbnb.com/s/'+key+'/experiences" role="button" style="margin: 0 5px;">Explore</a>';
+                    results += '<a target="_blank" class="btn btn-secondary" href="mailto:friend@example.com?subject=' + subject + '&body=' + body + '" role="button" style="margin: 0 5px;">Send to Friend</a>';
                     results += "</div>";
                 }
                 results += '</div>';
@@ -130,6 +132,12 @@ function drawResults(searchResults){
 
         if( count == 0 ) $("#resultsTable").html('<h1 style="margin-top: 15px; margin-left: 30px; margin-bottom: 30px;"> NO RESULTS </h1><img src="./img/no-results.png" id="image2" style="width:100%;height:400px;">');
     });
+    var timer = setTimeout(function(){
+      p.abort();
+      document.getElementById('spinner').style.display = 'none';
+      document.getElementById('resultsTable').style.display = '';
+      $("#resultsTable").html('<h1 style="margin-top: 15px; margin-left: 30px; margin-bottom: 30px;"> NO RESULTS </h1><img src="./img/no-results.png" id="image2" style="width:100%;height:400px;">');
+    }, 15000);
   }
   else {
     document.getElementById('spinner').style.display = 'none';
