@@ -48,7 +48,7 @@ function drawResults(searchResults){
     });
 
     if( airports != "" ) {
-    var requestURL = "http://192.168.8.155:8080/flights?dateFrom="+fromDate+"&dateTo="+toDate+"&origins="+airports;
+    var requestURL = "http://localhost:8080/flights?dateFrom="+fromDate+"&dateTo="+toDate+"&origins="+airports;
 
     console.log(requestURL);
 
@@ -96,7 +96,7 @@ function drawResults(searchResults){
                 for(var i=0;i<resultSet.length;i++){
                     price += resultSet[i].price;
                 }
-                results += '<div class="card" style="width: 22rem; margin:10px; text-align: center"><div class="card-header"><b>'+key+ ' (' + price + '€)' + '</b></div>';
+                results += '<div class="card" style="width: 22rem; margin:10px; text-align: center"><div class="card-header"><b>'+key+ ' (' + price + '€)' + '</b> </div>';
 
                 results += "<div class='card-body'>";
 
@@ -207,7 +207,7 @@ $(document).ready(function () {
         var cols = "";
 
         cols += '<td class="col-md-5"><input type="text" class="form-control" name="name' + counter + '"  placeholder="Full Name" value=' + String.fromCharCode(66 + counter) + '></td>';
-        cols += '<td class="col-md-5"><input type="text" class="autocomplete form-control" name="airport' + counter + '" placeholder="Airport Code" /></td>';
+        cols += '<td class="col-md-5"><input type="text" class="autocomplete form-control" name="airport' + counter + '" placeholder="Airport Code" style="text-transform: uppercase"/></td>';
         cols += '<td class="col-md-2"><input type="button" class="ibtnDel btn btn-md btn-danger"  value="Delete"></td>';
         newRow.append(cols);
         $("table.order-list").append(newRow);

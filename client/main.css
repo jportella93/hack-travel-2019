@@ -1,3 +1,8 @@
+
+.btn:hover{
+    background-color: #009882 !important;
+}
+
 .btn-info {
     background-color: #00A991 !important;
     padding: 5px 13px !important;

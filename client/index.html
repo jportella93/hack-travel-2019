@@ -8,12 +8,16 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="main.css">
+    <link rel="icon" type="image/vnd.microsoft.icon" href="icon_prs_icon.ico">
 
-    <title>Meet Me There</title>
+
+    <title>Meet-th</title>
   </head>
   <body>
     <nav class="navbar navbar-dark" style="background-color: #00826f;">
-      <a class="navbar-brand" href="#" style="margin-left: 20px">Meet Me There</a>
+      <a class="navbar-brand" href="#" style="margin-left: 20px">
+      <img src="icon.png" width="30" height="30" class="d-inline-block align-top" alt="">
+      Meet-th</a>
     </nav>
     <div id="targetDestination" style="background-color: #a93610; padding: 10px; text-align: center; color:white; display: none">Looking for Flights to ZRH</div>
     <div class="row row-divided">
@@ -35,7 +39,7 @@
                               <input type="text" name="name" class="form-control" placeholder="Full Name" value="A" />
                           </td>
                           <td class="col-md-5">
-                              <input type="text" name="airport" class="autocomplete form-control" placeholder="Airport Code" />
+                              <input type="text" name="airport" class="autocomplete form-control" placeholder="AIRPORT CODE" style="text-transform: uppercase" />
                           </td>
                           <td class="col-md-2">
                               <input type="hidden" />
@@ -61,10 +65,10 @@
                   </tr>
                   <tr class="row">
                     <td class="col-sm">
-                      <input class="form-control" type="date" name="fromDate" value="2019-03-30" id="fromDate">
+                      <input class="form-control" type="date" name="fromDate" value="2019-04-01" id="fromDate">
                     </td>
                     <td class="col-sm">
-                      <input class="form-control" type="date" name="toDate" value="2019-03-31" id="toDate">
+                      <input class="form-control" type="date" name="toDate" value="2019-04-15" id="toDate">
                     </td>
                   </tr>
                 </table>
@@ -110,6 +114,8 @@
       </div>
       <div class="row" id="resultsTable">
     </div>
+
+
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
