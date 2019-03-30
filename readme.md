@@ -1,13 +1,7 @@
 Example API request:
 ```
-curl -X POST \
-  http://localhost:8080/flights \
-  -H 'Content-Type: application/json' \
-  -H 'cache-control: no-cache' \
-  -d '{
-	"flyFrom": ["BCN", "GVA", "LHR"],
-	"dateFrom": "15/04/2019",
-	"dateTo": "18/04/2019"
+  'http://localhost:8080/flights?dateFrom=15/04/2019&dateTo=18/04/2019&origins=BCN,GVA,LHR' \
+  -H 'apikey: <apikey>' \
 }'
 ```
 
