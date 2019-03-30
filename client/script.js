@@ -55,6 +55,23 @@ function drawResults(searchResults){
         var listToShow = [];
 
         var results = "";
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const myParam = urlParams.get('location');
+        var myObj = {};
+        if(myParam){
+            console.log(data);
+            for (var key in data) {
+              if (data.hasOwnProperty(key)) {
+                if(key == myParam){
+                  myObj[key] = data[key];
+                }
+              }
+            }
+            data = myObj;
+        }
+
+
         $.each( data, function( key, val ) {
 
             if(count < 6){

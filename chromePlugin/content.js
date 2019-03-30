@@ -1,4 +1,4 @@
-var obj = {"LAX":"Los Angeles", "IAD":"Virginia", "BWI":"Baltimore", "BOS":"Boston", "PHL":"Philadelphia", "STL":"St. Louis","SEA":"Seattle", "HOU":"Houston", "MIA":"Miami", "TMP":"Tampa", "ATL":"Atlanta", "CLE":"Cleveland", "IND":"Indianapolis", "GVA":"Geneva", "ZRH" : "Zurich"};
+var obj = {"Los Angeles":"Los Angeles", "Virginia":"Virginia", "Baltimore":"Baltimore", "Boston":"Boston", "Philadelphia":"Philadelphia", "Seattle":"Seattle", "Houston":"Houston", "Miami":"Miami", "Tampa":"Tampa", "Atlanta":"Atlanta", "Cleveland":"Cleveland", "Indianapolis":"Indianapolis", "Geneva":"Geneva", "Zurich" : "Zurich"};
 
 var body = document.body;
 var textContent = body.textContent || body.innerText;
