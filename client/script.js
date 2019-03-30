@@ -2,7 +2,11 @@
 
 document.getElementById('spinner').style.display = 'none';
 
+
+
 function drawResults(searchResults){
+    document.getElementById('resultsTable').style.display = 'none';
+    document.getElementById('spinner').style.display = '';
 
     var $inputs = $('#userForm :input');
 
@@ -13,9 +17,9 @@ function drawResults(searchResults){
     var airports = [];
     var fromDate = "";
     var toDate = "";
+    var count = 0;
     $inputs.each(function() {
         values[this.name] = $(this).val();
-
 
         if(this.name.includes("name")){
             names.push($(this).val());
@@ -43,12 +47,13 @@ function drawResults(searchResults){
 
     var requestURL = "http://localhost:8080/flights?dateFrom="+fromDate+"&dateTo="+toDate+"&origins="+airports;
 
+    console.log(requestURL);
+
     $.getJSON(requestURL, function( data ) {
         var items = [];
-        var results = "";
-        var count = 0;
         var listToShow = [];
 
+        var results = "";
         $.each( data, function( key, val ) {
             if(count < 6){
                 var resultList = [];
@@ -77,7 +82,7 @@ function drawResults(searchResults){
                     results += '<br><a class="btn btn-info" href="'+resultSet[i].deepLink+'" role="button" style="margin: 0 5px;">Buy</a>';
                     var subject = "Lets go to " + resultSet[i].flyTo + "!";
                     var body = encodeURIComponent(resultSet[i].deepLink);
-                    results += '<a class="btn btn-secondary" href="mailto:friend@example.com?subject=' + subject + '&body=' + body + '" role="button" style="margin: 0 5px;">Send to Friend</a><br>';
+                    results += '<a class="btn btn-secondary" href="mailto:friend@example.com?subject=' + subject + '&body=' + body + '" role="button" style="margin: 0 5px;">Send to Friend</a>';
                     results += "</div>";
                 }
                 results += '</div>';
@@ -96,6 +101,7 @@ function drawResults(searchResults){
           results += listToShow[i].r;
         }
         document.getElementById('spinner').style.display = 'none';
+        document.getElementById('resultsTable').style.display = '';
         $("#resultsTable").html(results);
 
         if( count == 0 ) $("#resultsTable").html('<h1 style="margin-top: 15px; margin-left: 30px; margin-bottom: 30px;"> NO RESULTS </h1><img src="./img/no-results.png" id="image2" style="width:100%;height:400px;">');
@@ -266,8 +272,6 @@ $(document).ready(function () {
 
     $("#getFlights").on("click", function () {
         drawResults(['BCN']);
-
-
     });
 
 });
