@@ -5,7 +5,7 @@ const router = new Router();
 const flightsController = require('./flightsController')
 
 router.get('/flights', async (ctx, next) => {
-    let {dateFrom, dateTo, origins} = ctx.query;
+    let {dateFrom, dateTo, origins, destination} = ctx.query;
 
     if (!dateFrom | !dateTo | !origins) {
       ctx.body = 'Error: missing parameters';
@@ -13,8 +13,12 @@ router.get('/flights', async (ctx, next) => {
 
     } else {
       origins = origins.split(',');
-      ctx.body = await flightsController.getFlights(dateFrom, dateTo, origins)
-      ctx.status = 200;
+
+      if (destination) {
+        ctx.body = await flightsController.getFlightsForOneDestination({dateFrom, dateTo, origins, destination})
+      } else {
+        ctx.body = await flightsController.getFlights({dateFrom, dateTo, origins})
+      }
   }
 });
 
