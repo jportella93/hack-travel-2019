@@ -81,9 +81,11 @@ function drawResults(searchResults){
                     results += "<div class='card-body'>";
                     if( resultSet[i].user ) results += "<b>" + resultSet[i].user+"</b>: ";
                     results += resultSet[i].flyFrom+" -> "+resultSet[i].flyTo+" ("+resultSet[i].price+" €)";
-                    results += '<br><a class="btn btn-primary" href="'+resultSet[i].deepLink+'" role="button">Buy</a> <a class="btn btn-outline-secondary" href="'+resultSet[i].deepLink+'" role="button">Send to Friend</a><br>';
+                    results += '<br><a class="btn btn-info" href="'+resultSet[i].deepLink+'" role="button" style="margin: 0 5px;">Buy</a>';
+                    var subject = "Lets go to " + resultSet[i].flyTo + "!";
+                    var body = encodeURIComponent(resultSet[i].deepLink);
+                    results += '<a class="btn btn-secondary" href="mailto:friend@example.com?subject=' + subject + '&body=' + body + '" role="button" style="margin: 0 5px;">Send to Friend</a><br>';
                     results += "</div>";
-                    price += resultSet[i].price;
                 }
                 results += '</div>';
 
@@ -91,7 +93,7 @@ function drawResults(searchResults){
         });
         $("#resultsTable").html(results);
 
-        if( count == 0 ) $("#resultsTable").html('<h1 style="margin-top: 15px; margin-bottom: 15px;"> NO RESULTS </h1><img src="./img/no-results.png" id="image2" style="width:100%;height:400px;">');
+        if( count == 0 ) $("#resultsTable").html('<h1 style="margin-top: 15px; margin-left: 30px; margin-bottom: 30px;"> NO RESULTS </h1><img src="./img/no-results.png" id="image2" style="width:100%;height:400px;">');
     });
 
 
@@ -138,12 +140,118 @@ $(document).ready(function () {
         var newRow = $("<tr class='row'>");
         var cols = "";
 
-        cols += '<td class="col-md-5"><input type="text" class="form-control" name="name' + counter + '"  placeholder="Full Name"/></td>';
+        cols += '<td class="col-md-5"><input type="text" class="form-control" name="name' + counter + '"  placeholder="Full Name" value=' + String.fromCharCode(66 + counter) + '></td>';
         cols += '<td class="col-md-5"><input type="text" class="autocomplete form-control" name="airport' + counter + '" placeholder="Airport Code" /></td>';
         cols += '<td class="col-md-2"><input type="button" class="ibtnDel btn btn-md btn-danger"  value="Delete"></td>';
         newRow.append(cols);
         $("table.order-list").append(newRow);
+
+        var aux = "airport" + counter;
         counter++;
+
+        var ac = $("input[name=" + aux + "]")
+          .on('click', function(e) {
+            e.stopPropagation();
+          })
+          .on('focus keyup', search)
+          .on('keydown', onKeyDown);
+
+        var wrap = $('<div>')
+          .addClass('autocomplete-wrapper')
+          .insertBefore(ac)
+          .append(ac);
+
+        var list = $('<div>')
+          .addClass('autocomplete-results')
+          .on('click', '.autocomplete-result', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            selectIndex($(this).data('index'));
+          })
+          .appendTo(wrap);
+
+        $(document)
+          .on('mouseover', '.autocomplete-result', function(e) {
+            var index = parseInt($(this).data('index'), 10);
+            if (!isNaN(index)) {
+              list.attr('data-highlight', index);
+            }
+          })
+          .on('click', clearResults);
+
+        function clearResults() {
+          results = [];
+          numResults = 0;
+          list.empty();
+        }
+
+        function selectIndex(index) {
+          if (results.length >= index + 1) {
+            ac.val(results[index].iata);
+            clearResults();
+          }
+        }
+
+        var results = [];
+        var numResults = 0;
+        var selectedIndex = -1;
+
+        function search(e) {
+          if (e.which === 38 || e.which === 13 || e.which === 40) {
+            return;
+          }
+
+          if (ac.val().length > 0) {
+            results = _.take(fuse.search(ac.val()), 7);
+            numResults = results.length;
+
+            var divs = results.map(function(r, i) {
+                return '<div class="autocomplete-result" data-index="'+ i +'">'
+                     + '<div><b>'+ r.iata +'</b> - '+ r.name +'</div>'
+                     + '<div class="autocomplete-location">'+ r.city +', '+ r.country +'</div>'
+                     + '</div>';
+             });
+
+            selectedIndex = -1;
+            list.html(divs.join(''))
+              .attr('data-highlight', selectedIndex);
+
+          } else {
+            numResults = 0;
+            list.empty();
+          }
+        }
+
+        function onKeyDown(e) {
+          switch(e.which) {
+            case 38: // up
+              selectedIndex--;
+              if (selectedIndex <= -1) {
+                selectedIndex = -1;
+              }
+              list.attr('data-highlight', selectedIndex);
+              break;
+            case 13: // enter
+              selectIndex(selectedIndex);
+              break;
+            case 9: // enter
+              selectIndex(selectedIndex);
+              e.stopPropagation();
+              return;
+            case 40: // down
+              selectedIndex++;
+              if (selectedIndex >= numResults) {
+                selectedIndex = numResults-1;
+              }
+              list.attr('data-highlight', selectedIndex);
+              break;
+
+            default: return; // exit this handler for other keys
+          }
+          e.stopPropagation();
+          e.preventDefault(); // prevent the default action (scroll / move caret)
+        }
+
     });
 
     $("table.order-list").on("click", ".ibtnDel", function (event) {
