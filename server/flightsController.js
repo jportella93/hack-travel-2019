@@ -1,9 +1,9 @@
 const axios = require('axios');
 const apiKey = process.env.API_KEY;
 
-function getFlightsForOneOrigin({flyFrom, dateFrom, dateTo}) {
+function getFlightsForOneOrigin({flyFrom, flyTo, dateFrom, dateTo}) {
   return new Promise((resolve, reject) => {
-    axios.get(`https://kiwicom-prod.apigee.net/v2/search?flyFrom=${flyFrom}&dateFrom=${dateFrom}&dateTo=${dateTo}`, {
+    axios.get(`https://kiwicom-prod.apigee.net/v2/search?fly_from=${flyFrom}${flyTo ? `&fly_to=${flyTo}` : ''}&dateFrom=${dateFrom}&dateTo=${dateTo}`, {
       headers: {
         apiKey,
       },
@@ -34,7 +34,7 @@ function getFlightsForOneOrigin({flyFrom, dateFrom, dateTo}) {
   })
 }
 
-function groupFlights(origins){
+function groupFlights(origins) {
   const commonFlights = {};
   origins.forEach(flights => flights.forEach(flight => {
     if (flight.cityTo in commonFlights) {
@@ -56,7 +56,7 @@ function filterFlightsWithoutAllOrigins(groupedFlights, origins){
   return copyOfGroupedFlights
 }
 
-module.exports.getFlights = async (dateFrom, dateTo, origins) => {
+module.exports.getFlights = async ({dateFrom, dateTo, origins}) => {
   const formattedOrigins = [];
   origins.forEach(origin => formattedOrigins.push({
     flyFrom: origin,
@@ -72,4 +72,26 @@ module.exports.getFlights = async (dateFrom, dateTo, origins) => {
   const destinationsWithAllOrigins = filterFlightsWithoutAllOrigins(flightsGroupedByDestination, formattedOrigins)
 
 	return destinationsWithAllOrigins;
+}
+
+module.exports.getFlightsForOneDestination = async ({dateFrom, dateTo, origins, destination}) => {
+  const formattedOrigins = [];
+  origins.forEach(origin => formattedOrigins.push({
+    flyFrom: origin,
+    flyTo: destination,
+    dateFrom,
+    dateTo,
+    })
+  )
+
+  const parsedFlights = await Promise.all(formattedOrigins.map(origin => getFlightsForOneOrigin(origin)))
+
+  const destinationCity = [Object.values(parsedFlights[0])[0].cityTo];
+
+  const response = {
+    [destinationCity]: []
+  };
+
+  parsedFlights.forEach(set => set.forEach(flight => response[destinationCity].push(flight)))
+  return response;
 }
