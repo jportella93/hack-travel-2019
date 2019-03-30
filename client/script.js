@@ -45,9 +45,10 @@ function drawResults(searchResults){
         var items = [];
         var results = "";
         var count = 0;
+        var listToShow = [];
 
         $.each( data, function( key, val ) {
-            if(count < 4){
+            if(count < 6){
                 var resultList = [];
                 var resultSet = [];
                 var userCount = 0;
@@ -59,17 +60,7 @@ function drawResults(searchResults){
                     }
                 }
 
-                function compare(a,b) {
-                  if (a.price < b.price)
-                    return -1;
-                  if (a.price > b.price)
-                    return 1;
-                  return 0;
-                }
-                resultSet.sort(compare);
-
                 console.log(resultSet);
-                count++;
 
                 var price = 0;
                 for(var i=0;i<resultSet.length;i++){
@@ -88,9 +79,20 @@ function drawResults(searchResults){
                     results += "</div>";
                 }
                 results += '</div>';
+                listToShow[count] = {
+                  p : price,
+                  r : results
+                };
+                results = "";
+                count++;
 
             }
         });
+        listToShow.sort( function(a, b){return a.p-b.p});
+
+        for(var i=0;i<listToShow.length;i++){
+          results += listToShow[i].r;
+        }
         $("#resultsTable").html(results);
 
         if( count == 0 ) $("#resultsTable").html('<h1 style="margin-top: 15px; margin-left: 30px; margin-bottom: 30px;"> NO RESULTS </h1><img src="./img/no-results.png" id="image2" style="width:100%;height:400px;">');
