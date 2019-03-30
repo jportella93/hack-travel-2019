@@ -7,3 +7,4 @@ Example API request:
 
 [Will generate this response](./mockResponse.json)
 
+
