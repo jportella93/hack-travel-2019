@@ -107,6 +107,7 @@ function drawResults(searchResults){
                     results += '<br><a target="_blank" class="btn btn-info" href="'+resultSet[i].deepLink+'" role="button" style="margin: 0 5px;">Buy</a>';
                     var subject = "Lets go to " + resultSet[i].flyTo + "!";
                     var body = encodeURIComponent(resultSet[i].deepLink);
+                    results += '<a target="_blank" class="btn btn-warning" href="https://www.airbnb.com/s/'+key+'/homes" role="button" style="margin: 0 5px;">Accomodation</a>';
                     results += '<a target="_blank" class="btn btn-warning" href="https://www.airbnb.com/s/'+key+'/experiences" role="button" style="margin: 0 5px;">Explore</a>';
                     results += '<a target="_blank" class="btn btn-secondary" href="mailto:friend@example.com?subject=' + subject + '&body=' + body + '" role="button" style="margin: 0 5px;">Send to Friend</a>';
                     results += "</div>";
