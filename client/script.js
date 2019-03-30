@@ -73,7 +73,7 @@ function drawResults(searchResults){
                 for(var i=0;i<resultSet.length;i++){
                     results += "<div class='card-body'>";
                     if( resultSet[i].user ) results += "<b>" + resultSet[i].user+"</b>: ";
-                    results += resultSet[i].flyFrom+" -> "+resultSet[i].flyTo+" ("+resultSet[i].price+" €)";
+                    results += resultSet[i].flyFrom+" -> "+resultSet[i].flyTo+' <span class="badge badge-dark" style="margin-bottom: 5px;">'+resultSet[i].price+" €</span>";
                     results += '<br><a class="btn btn-info" href="'+resultSet[i].deepLink+'" role="button" style="margin: 0 5px;">Buy</a>';
                     var subject = "Lets go to " + resultSet[i].flyTo + "!";
                     var body = encodeURIComponent(resultSet[i].deepLink);
