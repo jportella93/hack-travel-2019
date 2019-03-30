@@ -4,6 +4,8 @@
 
 document.getElementById('spinner').style.display = 'none';
 
+let apiResponse = {};
+
 function drawResults(searchResults){
     document.getElementById('resultsTable').style.display = 'none';
     document.getElementById('spinner').style.display = '';
@@ -51,6 +53,7 @@ function drawResults(searchResults){
     console.log(requestURL);
 
     var p = $.getJSON(requestURL, function( data ) {
+				apiResponse = data;
         clearTimeout(timer);
         var items = [];
         var listToShow = [];
