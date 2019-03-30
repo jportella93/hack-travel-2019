@@ -48,7 +48,7 @@ function drawResults(searchResults){
     });
 
     if( airports != "" ) {
-    var requestURL = "http://192.168.8.155:8080/flights?dateFrom="+fromDate+"&dateTo="+toDate+"&origins="+airports;
+    var requestURL = "http://localhost:8080/flights?dateFrom="+fromDate+"&dateTo="+toDate+"&origins="+airports;
 
     console.log(requestURL);
 
@@ -96,18 +96,18 @@ function drawResults(searchResults){
                 for(var i=0;i<resultSet.length;i++){
                     price += resultSet[i].price;
                 }
-                results += '<div class="card" style="width: 22rem; margin:10px; text-align: center"><div class="card-header"><b>'+key+ ' (' + price + '€)' + '</b></div>';
+                results += '<div class="card" style="width: 22rem; margin:10px; text-align: center"><div class="card-header"><b>'+key+ ' (' + price + '€)' + '</b> </div>';
 
                 for(var i=0;i<resultSet.length;i++){
                     results += "<div class='card-body'>";
-                    if( resultSet[i].user ) results += "<b>" + resultSet[i].user+"</b>: ";
+                    if( resultSet[i].user ) results += "<div class='row'><div class='col-sm-6 text-right'><b>" + resultSet[i].user+"</b>: ";
                     var localHour = moment( resultSet[i].localArrival ).format('HH:mm');
                     results += resultSet[i].flyFrom+" -> "+resultSet[i].flyTo+'<br>';
                     results += localHour+'  | <span class="badge badge-dark" style="margin-bottom: 5px;">'+resultSet[i].price+" €</span>";
-                    results += '<br><a target="_blank" class="btn btn-info" href="'+resultSet[i].deepLink+'" role="button" style="margin: 3px 5px;">Buy</a>';
+                    results += '</div><div class="col-sm-6 text-left "><a target="_blank" class="btn btn-info" href="'+resultSet[i].deepLink+'" role="button" style="margin: 3px 5px;">Buy</a></div></div>';
                     var subject = "Lets go to " + resultSet[i].flyTo + "!";
                     var body = encodeURIComponent(resultSet[i].deepLink);
-                    results += '<div class="btn-group" role="group" aria-label="Basic example">'
+                    results += '<div class="btn-group" style="margin-top:5px" role="group" aria-label="Basic example">'
                     results += '<a target="_blank" class="btn btn-outline-secondary" href="https://www.airbnb.com/s/'+key+'/homes" role="button">Accomodation</a>';
                     results += '<a target="_blank" class="btn btn-outline-secondary" href="https://www.airbnb.com/s/'+key+'/experiences" role="button">Explore</a>';
                     results += '<a target="_blank" class="btn btn-outline-secondary" href="mailto:friend@example.com?subject=' + subject + '&body=' + body + '" role="button">Share</a>';
@@ -206,7 +206,7 @@ $(document).ready(function () {
         var cols = "";
 
         cols += '<td class="col-md-5"><input type="text" class="form-control" name="name' + counter + '"  placeholder="Full Name" value=' + String.fromCharCode(66 + counter) + '></td>';
-        cols += '<td class="col-md-5"><input type="text" class="autocomplete form-control" name="airport' + counter + '" placeholder="Airport Code" /></td>';
+        cols += '<td class="col-md-5"><input type="text" class="autocomplete form-control" name="airport' + counter + '" placeholder="Airport Code" style="text-transform: uppercase"/></td>';
         cols += '<td class="col-md-2"><input type="button" class="ibtnDel btn btn-md btn-danger"  value="Delete"></td>';
         newRow.append(cols);
         $("table.order-list").append(newRow);
