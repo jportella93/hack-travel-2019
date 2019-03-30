@@ -47,16 +47,36 @@ function drawResults(searchResults){
         }
     });
 
-    var requestURL = "http://localhost:8080/flights?dateFrom="+fromDate+"&dateTo="+toDate+"&origins="+airports;
+    var requestURL = "http://192.168.8.155:8080/flights?dateFrom="+fromDate+"&dateTo="+toDate+"&origins="+airports;
 
     console.log(requestURL);
 
     $.getJSON(requestURL, function( data ) {
+
         var items = [];
         var listToShow = [];
 
         var results = "";
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const myParam = urlParams.get('location');
+        var myObj = {};
+        if(myParam){
+            console.log(data);
+            for (var key in data) {
+              if (data.hasOwnProperty(key)) {
+                if(key == myParam){
+                  myObj[key] = data[key];
+                }
+              }
+            }
+            data = myObj;
+        } 
+
+
         $.each( data, function( key, val ) {
+            
+
             if(count < 6){
                 var resultList = [];
                 var resultSet = [];
