@@ -98,22 +98,23 @@ function drawResults(searchResults){
                 }
                 results += '<div class="card" style="width: 22rem; margin:10px; text-align: center"><div class="card-header"><b>'+key+ ' (' + price + '€)' + '</b></div>';
 
+                results += "<div class='card-body'>";
+
                 for(var i=0;i<resultSet.length;i++){
-                    results += "<div class='card-body'>";
-                    if( resultSet[i].user ) results += "<b>" + resultSet[i].user+"</b>: ";
+                    if( resultSet[i].user ) results += "<b>"+resultSet[i].user+"</b>: ";
                     var localHour = moment( resultSet[i].localArrival ).format('HH:mm');
                     results += resultSet[i].flyFrom+" -> "+resultSet[i].flyTo+'<br>';
-                    results += localHour+'  | <span class="badge badge-dark" style="margin-bottom: 5px;">'+resultSet[i].price+" €</span>";
-                    results += '<br><a target="_blank" class="btn btn-info" href="'+resultSet[i].deepLink+'" role="button" style="margin: 3px 5px;">Buy</a>';
+                    results += localHour+' | <span class="badge badge-dark" style="margin-bottom: 5px;">'+resultSet[i].price+" €</span>";
+                    results += '<a target="_blank" class="btn btn-info" href="'+resultSet[i].deepLink+'" role="button" style="margin: 3px 5px;">Buy</a>';
                     var subject = "Lets go to " + resultSet[i].flyTo + "!";
                     var body = encodeURIComponent(resultSet[i].deepLink);
-                    results += '<div class="btn-group" role="group" aria-label="Basic example">'
-                    results += '<a target="_blank" class="btn btn-outline-secondary" href="https://www.airbnb.com/s/'+key+'/homes" role="button">Accomodation</a>';
-                    results += '<a target="_blank" class="btn btn-outline-secondary" href="https://www.airbnb.com/s/'+key+'/experiences" role="button">Explore</a>';
-                    results += '<a target="_blank" class="btn btn-outline-secondary" href="mailto:friend@example.com?subject=' + subject + '&body=' + body + '" role="button">Share</a>';
-                    results += "</div></div>";
+                    results += '<a target="_blank" class="btn btn-sm btn-secondary" href="mailto:friend@example.com?subject=' + subject + '&body=' + body + '" role="button">Share</a><br><br>';
                 }
-                results += '</div>';
+                results += '<div class="btn-group" role="group" aria-label="Basic example" style="margin-bottom: 10px">'
+                results += '<a target="_blank" class="btn btn-outline-secondary" href="https://www.airbnb.com/s/'+key+'/homes" role="button">Accomodation</a>';
+                results += '<a target="_blank" class="btn btn-outline-secondary" href="https://www.airbnb.com/s/'+key+'/experiences" role="button">Explore</a>';
+                results += "</div>";
+                results += '</div></div>';
                 listToShow[count] = {
                   p : price,
                   r : results
